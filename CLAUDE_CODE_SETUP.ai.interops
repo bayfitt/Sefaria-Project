@@ -1,0 +1,171 @@
+# Sefaria Trilingual Display - Claude Code Setup Instructions
+# ai.interops format for remote environment setup
+
+## Project Overview
+Experimental trilingual Hebrew-Transliteration-English display system for Sefaria texts.
+Status: NOT YET ALPHA - development branch with working line balance algorithm.
+
+## Prerequisites Check
+```bash
+# Verify required tools are available
+node --version  # Should be 14+ 
+python3 --version  # Should be 3.8+
+git --version
+```
+
+## Repository Setup
+
+### 1. Clone the Fork
+```bash
+# Clone the experimental trilingual branch
+git clone https://github.com/bayfitt/Sefaria-Project.git
+cd Sefaria-Project
+
+# Verify you're on master with trilingual commits
+git log --oneline -3
+# Should show: 2d2d8605e Merge experimental trilingual display feature
+```
+
+### 2. Verify Trilingual Files
+```bash
+# Check all trilingual files are present
+ls -la authentic_sefaria_demo.html README_TRILINGUAL.md ISSUES.md test_*.js
+# Expected files:
+# - authentic_sefaria_demo.html (main trilingual implementation)
+# - README_TRILINGUAL.md (project documentation) 
+# - ISSUES.md (comprehensive issue tracking)
+# - test_english_distribution.js (debug word distribution)
+# - test_line_balance_debug.js (verify line balance)
+# - test_word_alignment_fix.js (1:1 Hebrew-transliteration alignment)
+```
+
+## Test Environment Setup
+
+### 3. Quick Browser Test
+```bash
+# Open main trilingual implementation in browser
+open authentic_sefaria_demo.html
+# OR on Linux: xdg-open authentic_sefaria_demo.html
+
+# Expected behavior:
+# - Hebrew, transliteration, and English columns display
+# - Equal line counts between Hebrew/transliteration and English
+# - Proportional column widths (no excessive margins)
+# - Genesis Chapter 1 verses as fallback content
+```
+
+### 4. Node.js Debug Testing (Optional)
+```bash
+# Install dependencies for debug testing
+npm install puppeteer
+
+# Run line balance verification
+node test_line_balance_debug.js
+# Expected: Shows line count analysis for first 3 verses
+
+# Run word alignment test  
+node test_word_alignment_fix.js
+# Expected: Generates word_alignment_test.pdf with results
+
+# Run English distribution test
+node test_english_distribution.js  
+# Expected: Console output showing word distribution algorithm
+```
+
+### 5. Local Sefaria API Setup (Advanced)
+```bash
+# Only if you want to test with local Sefaria API
+python3 -m venv sefaria_env
+source sefaria_env/bin/activate  # On Windows: sefaria_env\Scripts\activate
+pip install -r requirements.txt
+
+# Note: Full Sefaria setup requires MongoDB and extensive configuration
+# The HTML file will fallback to hardcoded Genesis content if API unavailable
+```
+
+## Key Features to Test
+
+### Line Balance Algorithm
+- Hebrew/transliteration block and English verse should have **equal line counts**
+- No more than 5 lines per verse (reduced from previous 12+ line issue)
+- Words distributed evenly across lines, not all on first line
+
+### Column Proportions  
+- Hebrew and transliteration maintain 1:1 word correspondence
+- Column widths calculated proportionally based on content
+- Uses 97% of viewport width effectively
+- Minimal white space margins
+
+### Print Layout
+- Print preview shows Hebrew+Transliteration on left pages
+- English content on right pages  
+- Professional formatting for study materials
+
+## Troubleshooting
+
+### Issue: White screen or no content
+**Solution**: Check browser console for API errors. File should fallback to Genesis content.
+
+### Issue: All English words on one line
+**Solution**: Verify line 1203 override was removed from packWordsWithCorrespondence function.
+
+### Issue: Excessive line count (10+ lines)
+**Solution**: Check word-packing algorithm prefers fewer lines (4-10 words per line).
+
+### Issue: Disproportionate column widths
+**Solution**: Verify proportional column sizing algorithm in calculateColumnWidths function.
+
+## Development Status
+
+### Working Features ✅
+- Hebrew-Transliteration 1:1 word correspondence
+- Line balance algorithm (equal line counts)
+- Proportional column sizing 
+- Sefaria API integration with fallback
+- Print layout optimization
+- Multiple transliteration schema support
+
+### Critical Issues 🔧  
+- Column width algorithm needs refinement for edge cases
+- Performance optimization required for large texts
+- Cross-browser compatibility not tested (Chrome only)
+- Mobile responsiveness not implemented
+
+### Next Steps
+1. Test the line balance functionality
+2. Verify column proportions work correctly
+3. Report any regressions or new issues
+4. Do NOT create pull requests to main Sefaria repository yet
+
+## File Structure
+```
+Sefaria-Project/
+├── authentic_sefaria_demo.html    # Main trilingual implementation
+├── README_TRILINGUAL.md           # Project documentation
+├── ISSUES.md                      # Detailed issue tracking  
+├── test_line_balance_debug.js     # Line balance verification
+├── test_word_alignment_fix.js     # Hebrew-transliteration alignment test
+├── test_english_distribution.js  # Word distribution algorithm test
+└── [other Sefaria project files]
+```
+
+## Contact & Support
+This is experimental development work. For issues:
+1. Check ISSUES.md for known problems
+2. Test with different browsers if possible
+3. Document any new issues with specific browser/OS details
+4. Remember: Status is NOT YET ALPHA - expect rough edges
+
+## Git Configuration (if contributing)
+```bash
+# Configure for signed commits (optional)
+git config user.name "Your Name"  
+git config user.email "your.email@example.com"
+git config commit.gpgsign true  # If you have GPG/SSH signing setup
+```
+
+---
+**Generated by Claude Code** - Trilingual Display Experimental Branch  
+**Last Updated**: August 29, 2025  
+**Branch**: master (contains merged experimental/trilingual-display)  
+**Commit**: 2d2d8605e (signed merge commit)
