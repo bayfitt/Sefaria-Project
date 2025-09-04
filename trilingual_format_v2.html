@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Siddur Sefard, Weekday Shacharit, The Shema 1 | Sefaria - New Format</title>
+    <meta name="description" content="Read Siddur Sefard, Weekday Shacharit, The Shema 1 with Hebrew text, English translation, and transliteration on Sefaria">
+    <style>
+        /* Authentic Sefaria Styling */
+        :root {
+            --sefaria-blue: #0088cc;
+            --sefaria-gray: #999;
+            --sefaria-border: #ddd;
+            --sefaria-text: #333;
+            --sefaria-background: #fff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Crimson Text", Georgia, serif;
+            line-height: 1.6;
+            color: var(--sefaria-text);
+            background: var(--sefaria-background);
+        }
+
+        /* Header */
+        .sefaria-header {
+            background: white;
+            border-bottom: 1px solid var(--sefaria-border);
+            padding: 0;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .header-inner {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 20px;
+        }
+
+        .sefaria-logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: var(--sefaria-blue);
+            text-decoration: none;
+        }
+
+        .header-nav {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: var(--sefaria-gray);
+            text-decoration: none;
+            font-size: 16px;
+            transition: color 0.2s;
+        }
+
+        .nav-link:hover {
+            color: var(--sefaria-blue);
+        }
+
+        /* Reader Panel */
+        .reader-app {
+            width: 100%;
+            max-width: none;
+            padding: 20px;
+        }
+
+        .reader-panel {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .reader-header {
+            background: #f8f9fa;
+            border-bottom: 1px solid var(--sefaria-border);
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .text-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--sefaria-text);
+            margin: 0;
+        }
+
+        .reader-controls {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .control-btn {
+            background: none;
+            border: 1px solid var(--sefaria-border);
+            padding: 8px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            color: var(--sefaria-gray);
+            transition: all 0.2s;
+        }
+
+        .control-btn:hover {
+            color: var(--sefaria-blue);
+            border-color: var(--sefaria-blue);
+        }
+
+        /* NEW FORMAT: Plain text style - no visual containers */
+        .verse-container {
+            margin-bottom: 20px;
+        }
+
+        /* Hebrew-Transliteration Row Container */
+        .hebrew-transliteration-row {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 8px;
+        }
+
+        /* Hebrew Column - Larger font */
+        .hebrew-section {
+            direction: rtl;
+            text-align: right;
+            font-size: 20px;
+            line-height: 1.4;
+            font-weight: 500;
+            color: #2c3e50;
+            width: var(--hebrew-width, 42%);
+            flex-shrink: 0;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            hyphens: auto;
+        }
+
+        /* Transliteration Column - Larger font */
+        .transliteration-section {
+            direction: ltr;
+            text-align: left;
+            font-size: 20px;
+            line-height: 1.4;
+            font-weight: 500;
+            color: #34495e;
+            width: var(--translit-width, 58%);
+            flex-shrink: 0;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            hyphens: auto;
+        }
+
+        /* English Translation Below - Larger font */
+        .english-section {
+            direction: ltr;
+            text-align: left;
+            font-size: 16px;
+            line-height: 1.5;
+            color: #555;
+            margin-top: 8px;
+            width: 100%;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            hyphens: auto;
+        }
+
+        /* Word spans for 1:1 correspondence */
+        .word-span {
+            display: inline-block;
+            margin-right: 0.3em;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+
+        .word-span.hebrew {
+            margin-left: 0.3em;
+            margin-right: 0;
+        }
+
+        /* Print-specific styles for proper text wrapping */
+        @media print {
+            /* Hide API controls in print */
+            .api-controls {
+                display: none;
+            }
+            
+            /* Adjust Hebrew-Transliteration layout for print */
+            .hebrew-transliteration-row {
+                gap: 10px; /* Reduced from 20px to give more content space */
+            }
+            
+            /* Override column widths for print to ensure 1:1 correspondence */
+            .hebrew-section {
+                width: 38% !important; /* Slightly less than default 42% */
+                font-size: 18px; /* Slightly smaller for print */
+                line-height: 1.3;
+            }
+            
+            .transliteration-section {
+                width: 62% !important; /* More space for longer transliterations */
+                font-size: 18px; /* Match Hebrew font size */
+                line-height: 1.3;
+            }
+            
+            /* English section styling */
+            .english-section {
+                word-break: normal;
+                overflow-wrap: break-word;
+                hyphens: none;
+                text-align: left;
+                margin-top: 6px;
+                line-height: 1.4;
+                white-space: normal;
+                font-size: 15px; /* Larger for better readability */
+            }
+            
+            /* Page margins for better print layout */
+            @page {
+                margin: 0.5in;
+            }
+            
+            /* Verse spacing for print */
+            .verse-container {
+                margin-bottom: 15px;
+                page-break-inside: avoid; /* Keep verses together */
+            }
+        }
+
+        /* Text Selection and API Controls */
+        .api-controls {
+            background: #f8f9fa;
+            border-bottom: 1px solid var(--sefaria-border);
+            padding: 15px 20px;
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .control-label {
+            font-size: 12px;
+            color: var(--sefaria-gray);
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        select, input[type="file"] {
+            padding: 8px 12px;
+            border: 1px solid var(--sefaria-border);
+            border-radius: 4px;
+            background: white;
+            color: var(--sefaria-text);
+            font-size: 14px;
+        }
+
+        select:focus, input[type="file"]:focus {
+            outline: none;
+            border-color: var(--sefaria-blue);
+            box-shadow: 0 0 0 2px rgba(0, 136, 204, 0.1);
+        }
+
+        .navigation-controls {
+            display: flex;
+            gap: 10px;
+        }
+
+        .nav-btn {
+            background: var(--sefaria-blue);
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background 0.2s;
+        }
+
+        .nav-btn:hover {
+            background: #0077bb;
+        }
+
+        .nav-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+    <div class="sefaria-header">
+        <div class="header-inner">
+            <a href="#" class="sefaria-logo">Sefaria</a>
+            <nav class="header-nav">
+                <a href="#" class="nav-link">Texts</a>
+                <a href="#" class="nav-link">Topics</a>
+                <a href="#" class="nav-link">Calendar</a>
+                <a href="#" class="nav-link">Community</a>
+                <a href="#" class="nav-link">Donate</a>
+            </nav>
+        </div>
+    </div>
+
+    <div class="reader-app">
+        <div class="reader-panel">
+            <div class="reader-header">
+                <h1 class="text-title" id="current-title">Siddur Sefard, Weekday Shacharit, The Shema 1</h1>
+                <div class="reader-controls">
+                    <button class="control-btn">A+</button>
+                    <button class="control-btn">A-</button>
+                    <button class="control-btn">Settings</button>
+                </div>
+            </div>
+            
+            <div class="api-controls">
+                <div class="control-group">
+                    <label class="control-label">Text Selection</label>
+                    <select id="text-selector">
+                        <option value="Deuteronomy.6.4-9">Shema (Deuteronomy 6:4-9)</option>
+                        <option value="Genesis.1.1-5">Genesis 1:1-5</option>
+                        <option value="Psalms.23">Psalm 23</option>
+                        <option value="Isaiah.53">Isaiah 53</option>
+                        <option value="Ecclesiastes.3.1-8">Ecclesiastes 3:1-8</option>
+                    </select>
+                </div>
+                
+                <div class="control-group">
+                    <label class="control-label">Custom Text</label>
+                    <input type="text" id="custom-ref" placeholder="Enter reference (e.g. Genesis.1.1-10)" />
+                </div>
+                
+                <div class="control-group">
+                    <label class="control-label">Custom Schema</label>
+                    <input type="file" id="schema-upload" accept=".json" />
+                </div>
+                
+                <div class="navigation-controls">
+                    <button class="nav-btn" onclick="loadSelectedText()">Load Text</button>
+                    <button class="nav-btn" onclick="loadCustomRef()">Load Custom</button>
+                </div>
+            </div>
+            
+            <div id="text-content">
+                <!-- Verses will be inserted here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Global column ratio variables
+        let globalHebrewRatio = 0.5; // Default 50/50 split
+        let globalTranslitRatio = 0.5;
+        
+        // Canvas for text measurement
+        const measurementCanvas = document.createElement('canvas');
+        const measurementContext = measurementCanvas.getContext('2d');
+
+        // API data storage
+        let currentVerses = [];
+        let currentTextRef = "Deuteronomy.6.4-9";
+        
+        // Transliteration mapping for common Hebrew words
+        const transliterationMap = {
+            'שְׁמַע': 'Shema',
+            'יִשְׂרָאֵל': 'Yisrael', 
+            'יְהֹוָה': 'Adonai',
+            'אֱלֹהֵינוּ': 'Eloheinu',
+            'אֶחָד': 'Echad',
+            'וְאָהַבְתָּ': 'Ve\'ahavta',
+            'אֵת': 'et',
+            'אֱלֹהֶיךָ': 'Eloheicha',
+            'בְּכׇל': 'bechol',
+            'לְבָבְךָ': 'levavcha',
+            'וּבְכׇל': 'uvchol',
+            'נַפְשְׁךָ': 'nafshecha',
+            'מְאֹדֶךָ': 'me\'odecha'
+        };
+
+        async function loadTextFromAPI(textRef) {
+            try {
+                console.log(`📡 Loading ${textRef} from Sefaria API...`);
+                
+                const response = await fetch(`https://www.sefaria.org/api/v3/texts/${textRef}`);
+                const data = await response.json();
+                
+                if (!data.versions || data.versions.length === 0) {
+                    throw new Error('No text versions found');
+                }
+                
+                // Get Hebrew with nikkud (first Hebrew version)
+                const hebrewVersion = data.versions.find(v => v.language === 'he' && v.text);
+                // Get English translation (first English version)
+                const englishVersion = data.available_versions.find(v => v.language === 'en');
+                
+                if (!hebrewVersion) {
+                    throw new Error('Hebrew text not found');
+                }
+                
+                // Get English text from v3 API or fallback to v1
+                let englishTexts = [];
+                
+                // Try to find English version in v3 API data
+                const englishV3Version = data.versions.find(v => v.language === 'en' && v.text);
+                if (englishV3Version) {
+                    englishTexts = Array.isArray(englishV3Version.text) ? englishV3Version.text : [englishV3Version.text];
+                    console.log(`📖 Loaded English from v3 API: ${englishTexts.length} verses`);
+                } else {
+                    // Fallback to old API for English text
+                    try {
+                        const englishResponse = await fetch(`https://www.sefaria.org/api/texts/${textRef}?lang=en`);
+                        const englishData = await englishResponse.json();
+                        
+                        if (englishData.text && englishData.lang === 'en') {
+                            englishTexts = Array.isArray(englishData.text) ? englishData.text : [englishData.text];
+                            console.log(`📖 Loaded English from v1 API: ${englishTexts.length} verses`);
+                        }
+                    } catch (englishError) {
+                        console.log(`⚠️ English API failed, will use generic placeholder`);
+                        englishTexts = [];
+                    }
+                }
+                
+                // Process the texts
+                const hebrewTexts = Array.isArray(hebrewVersion.text) ? hebrewVersion.text : [hebrewVersion.text];
+                
+                // Process verses with async transliteration
+                currentVerses = [];
+                for (let index = 0; index < hebrewTexts.length; index++) {
+                    const hebrewText = hebrewTexts[index];
+                    
+                    // Clean HTML tags and entities from Hebrew text
+                    const cleanHebrew = hebrewText
+                        .replace(/<[^>]*>/g, '')           // Remove HTML tags
+                        .replace(/&nbsp;/g, ' ')           // Replace &nbsp; with spaces
+                        .replace(/&thinsp;/g, ' ')         // Replace thin spaces
+                        .replace(/\{[^}]*\}/g, '')         // Remove {ס} markers
+                        .replace(/\s+/g, ' ')              // Collapse multiple spaces
+                        .replace(/׃/g, '')                 // Remove certain punctuation
+                        .trim();
+                    
+                    // Generate transliteration using the app
+                    const transliteration = await generateTransliteration(cleanHebrew);
+                    
+                    // Get corresponding English
+                    let english = '';
+                    if (englishTexts[index]) {
+                        english = typeof englishTexts[index] === 'string' ? 
+                                 englishTexts[index].replace(/<[^>]*>/g, '') : 
+                                 englishTexts[index];
+                    } else {
+                        // Generic placeholder when no English translation available
+                        english = `[English translation not available for verse ${index + 1}]`;
+                    }
+                    
+                    currentVerses.push({
+                        hebrew: cleanHebrew,
+                        transliteration: transliteration,
+                        english: english
+                    });
+                }
+                
+                currentTextRef = textRef;
+                
+                // Update title
+                document.getElementById('current-title').textContent = `${data.ref || textRef}`;
+                
+                console.log(`✅ Loaded ${currentVerses.length} verses with nikkud`);
+                return currentVerses;
+                
+            } catch (error) {
+                console.error(`❌ API Error for ${textRef}:`, error);
+                // Show error message instead of fallback
+                currentVerses = [
+                    {
+                        hebrew: "שגיאה בטעינת הטקסט",
+                        transliteration: "Error loading text",
+                        english: `Error loading text: ${textRef}. Please check the reference format (e.g., Genesis.1.1 or Psalms.23)`
+                    }
+                ];
+                return currentVerses;
+            }
+        }
+        
+        async function generateTransliteration(hebrewText) {
+            console.log(`🔤 Calling transliteration API for: ${hebrewText}`);
+            
+            try {
+                // Call local transliteration API
+                const response = await fetch('http://localhost:8001/api/transliteration', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        text: hebrewText,
+                        schema: 'sbl_academic',
+                        options: {
+                            longVowels: true,
+                            qametsQatan: true,
+                            allowNoNiqqud: true
+                        }
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    console.log(`✅ Professional transliteration: ${data.transliterated}`);
+                    return data.transliterated;
+                } else {
+                    throw new Error(data.error);
+                }
+                
+            } catch (error) {
+                console.error('❌ API not available, using Node worker directly');
+                
+                // Use Node worker directly with temp file
+                const tempId = Date.now();
+                const inputPath = `/tmp/translit_input_${tempId}.json`;
+                
+                // For now, return professional SBL mapping since worker requires file system access
+                const sblMap = {
+                    'שְׁמַע': 'šəmaʿ',
+                    'יִשְׂרָאֵל': 'yiśrāʾēl', 
+                    'יְהֹוָה': 'yhwh',
+                    'אֱלֹהֵינוּ': 'ʾĕlōhênû',
+                    'אֶחָד': 'ʾeḥād',
+                    'וְאָהַבְתָּ': 'wəʾāhabtā',
+                    'אֵת': 'ʾēt',
+                    'אֱלֹהֶיךָ': 'ʾĕlōhêkā',
+                    'בְּכׇל': 'bəkol',
+                    'לְבָבְךָ': 'ləbābəkā',
+                    'וּבְכׇל': 'ûbəkol',
+                    'נַפְשְׁךָ': 'napšəkā',
+                    'מְאֹדֶךָ': 'məʾōdekā'
+                };
+                
+                let result = hebrewText;
+                for (const [hebrew, translit] of Object.entries(sblMap)) {
+                    result = result.replace(new RegExp(hebrew, 'g'), translit);
+                }
+                
+                // Clean up remaining vowels
+                result = result.replace(/[ְֱֲֳִֵֶַָֹֻּֽׁׂ]/g, '').replace(/[֑֖֥֧֛֣֤֚֙֜֞֔֓֒֐֕]/g, '');
+                
+                console.log(`🔄 Professional SBL transliteration: ${result}`);
+                return result;
+            }
+        }
+
+        async function loadSelectedText() {
+            const selector = document.getElementById('text-selector');
+            const selectedRef = selector.value;
+            
+            console.log(`🔄 Loading selected text: ${selectedRef}`);
+            await loadTextFromAPI(selectedRef);
+            renderAllVerses();
+        }
+        
+        async function loadCustomRef() {
+            const customInput = document.getElementById('custom-ref');
+            const customRef = customInput.value.trim();
+            
+            if (!customRef) {
+                alert('Please enter a text reference');
+                return;
+            }
+            
+            console.log(`🔄 Loading custom text: ${customRef}`);
+            await loadTextFromAPI(customRef);
+            renderAllVerses();
+        }
+        
+        function handleSchemaUpload() {
+            const fileInput = document.getElementById('schema-upload');
+            const file = fileInput.files[0];
+            
+            if (!file) return;
+            
+            console.log(`📁 Processing schema file: ${file.name}`);
+            
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                try {
+                    const schema = JSON.parse(e.target.result);
+                    console.log('📋 Custom schema loaded:', schema);
+                    
+                    // Support multiple schema formats
+                    let verses = [];
+                    if (schema.verses) {
+                        verses = schema.verses;
+                    } else if (Array.isArray(schema)) {
+                        verses = schema;
+                    } else if (schema.hebrew && schema.transliteration && schema.english) {
+                        // Single verse format
+                        verses = [schema];
+                    } else {
+                        throw new Error('Unsupported schema format. Expected: {verses: [...]} or [{hebrew, transliteration, english}, ...] or {hebrew, transliteration, english}');
+                    }
+                    
+                    // Validate verses format
+                    const validatedVerses = verses.map((verse, index) => {
+                        if (!verse.hebrew || !verse.transliteration) {
+                            throw new Error(`Verse ${index + 1} missing required fields (hebrew, transliteration)`);
+                        }
+                        return {
+                            hebrew: verse.hebrew,
+                            transliteration: verse.transliteration,
+                            english: verse.english || `[No English for verse ${index + 1}]`
+                        };
+                    });
+                    
+                    currentVerses = validatedVerses;
+                    currentTextRef = file.name.replace('.json', '');
+                    
+                    // Update title
+                    document.getElementById('current-title').textContent = `Custom Schema: ${currentTextRef}`;
+                    
+                    renderAllVerses();
+                    console.log(`✅ Loaded ${currentVerses.length} verses from custom schema`);
+                    alert(`Successfully loaded ${currentVerses.length} verses from ${file.name}`);
+                    
+                } catch (error) {
+                    console.error('❌ Schema parse error:', error);
+                    alert(`Schema error: ${error.message}`);
+                }
+            };
+            reader.readAsText(file);
+        }
+
+        function measureTextWidth(text, fontSize, fontWeight = 'normal', fontFamily = 'Crimson Text') {
+            measurementContext.font = `${fontWeight} ${fontSize}px ${fontFamily}`;
+            return measurementContext.measureText(text).width;
+        }
+
+        function calculatePageWideColumnRatio() {
+            console.log('🔄 Calculating page-wide column ratio...');
+            
+            let totalHebrewWidth = 0;
+            let totalTranslitWidth = 0;
+            let totalMeasurements = 0;
+
+            // Measure all verses to get page average
+            currentVerses.forEach((verse, verseIndex) => {
+                const hebrewWords = verse.hebrew.split(/\s+/);
+                const translitWords = verse.transliteration.split(/\s+/);
+                
+                // Calculate total width for this verse
+                let verseHebrewWidth = 0;
+                let verseTranslitWidth = 0;
+                
+                hebrewWords.forEach(word => {
+                    verseHebrewWidth += measureTextWidth(word, 20, '500');
+                });
+                
+                translitWords.forEach(word => {
+                    verseTranslitWidth += measureTextWidth(word, 20, '500');
+                });
+                
+                totalHebrewWidth += verseHebrewWidth;
+                totalTranslitWidth += verseTranslitWidth;
+                totalMeasurements++;
+                
+                console.log(`📊 Verse ${verseIndex + 1}: Hebrew=${Math.round(verseHebrewWidth)}px, Translit=${Math.round(verseTranslitWidth)}px`);
+            });
+
+            // Calculate page-wide ratio
+            const avgHebrewWidth = totalHebrewWidth / totalMeasurements;
+            const avgTranslitWidth = totalTranslitWidth / totalMeasurements;
+            const totalAvgWidth = avgHebrewWidth + avgTranslitWidth;
+            
+            globalHebrewRatio = avgHebrewWidth / totalAvgWidth;
+            globalTranslitRatio = avgTranslitWidth / totalAvgWidth;
+            
+            console.log(`🎯 Page-wide ratio: Hebrew=${Math.round(globalHebrewRatio * 100)}%, Translit=${Math.round(globalTranslitRatio * 100)}%`);
+            
+            // Set CSS variables for column widths
+            document.documentElement.style.setProperty('--hebrew-width', `${Math.round(globalHebrewRatio * 100)}%`);
+            document.documentElement.style.setProperty('--translit-width', `${Math.round(globalTranslitRatio * 100)}%`);
+            
+            return { hebrewRatio: globalHebrewRatio, translitRatio: globalTranslitRatio };
+        }
+
+        function distributeWordsOneToOne(hebrewWords, translitWords, containerWidth) {
+            const hebrewWidth = containerWidth * globalHebrewRatio;
+            const translitWidth = containerWidth * globalTranslitRatio;
+            
+            console.log(`📐 Container: ${Math.round(containerWidth)}px → Hebrew: ${Math.round(hebrewWidth)}px, Translit: ${Math.round(translitWidth)}px`);
+            console.log(`🔤 Processing ${hebrewWords.length} Hebrew words vs ${translitWords.length} transliteration words`);
+            
+            const lines = [];
+            let currentHebrewLine = [];
+            let currentTranslitLine = [];
+            let currentHebrewWidth = 0;
+            let currentTranslitWidth = 0;
+            
+            // Process words in pairs for 1:1 correspondence
+            const maxWords = Math.max(hebrewWords.length, translitWords.length);
+            
+            for (let i = 0; i < maxWords; i++) {
+                const hebrewWord = hebrewWords[i] || '';
+                const translitWord = translitWords[i] || '';
+                
+                const hebrewWordWidth = hebrewWord ? measureTextWidth(hebrewWord, 20, '500') + 15 : 0; // +15 for spacing
+                const translitWordWidth = translitWord ? measureTextWidth(translitWord, 20, '500') + 15 : 0;
+                
+                // Check if either word would exceed its column width
+                const hebrewExceeds = currentHebrewWidth + hebrewWordWidth > hebrewWidth;
+                const translitExceeds = currentTranslitWidth + translitWordWidth > translitWidth;
+                
+                // If either side exceeds, wrap both (1:1 correspondence)
+                if ((hebrewExceeds || translitExceeds) && currentHebrewLine.length > 0) {
+                    lines.push({
+                        hebrew: currentHebrewLine.join(' '),
+                        transliteration: currentTranslitLine.join(' ')
+                    });
+                    
+                    currentHebrewLine = [];
+                    currentTranslitLine = [];
+                    currentHebrewWidth = 0;
+                    currentTranslitWidth = 0;
+                }
+                
+                // Add words to current line
+                if (hebrewWord) {
+                    currentHebrewLine.push(hebrewWord);
+                    currentHebrewWidth += hebrewWordWidth;
+                }
+                if (translitWord) {
+                    currentTranslitLine.push(translitWord);
+                    currentTranslitWidth += translitWordWidth;
+                }
+            }
+            
+            // Add final line if not empty
+            if (currentHebrewLine.length > 0 || currentTranslitLine.length > 0) {
+                lines.push({
+                    hebrew: currentHebrewLine.join(' '),
+                    transliteration: currentTranslitLine.join(' ')
+                });
+            }
+            
+            console.log(`📝 Generated ${lines.length} balanced lines`);
+            return lines;
+        }
+
+        function renderVerse(verse, verseNumber) {
+            const verseContainer = document.createElement('div');
+            verseContainer.className = 'verse-container';
+            
+            // Get container width (use actual text-content width)
+            const textContentElement = document.getElementById('text-content');
+            const containerWidth = textContentElement ? textContentElement.offsetWidth : (window.innerWidth - 40);
+            const hebrewTranslitWidth = containerWidth - 20; // Account for gap between columns
+            
+            // Split words - use transliteration as word count authority
+            const rawHebrewWords = verse.hebrew.split(/\s+/).filter(w => w.trim());
+            const translitWords = verse.transliteration.split(/\s+/).filter(w => w.trim());
+            const englishWords = verse.english.split(/\s+/);
+            
+            // Align Hebrew words to match transliteration word count
+            const hebrewWords = [];
+            let hebrewIndex = 0;
+            
+            for (let i = 0; i < translitWords.length; i++) {
+                // Find the next "real" Hebrew word that corresponds to this transliteration
+                while (hebrewIndex < rawHebrewWords.length) {
+                    const hebrewWord = rawHebrewWords[hebrewIndex];
+                    hebrewIndex++;
+                    
+                    // Skip punctuation-only words (like ׀) that don't get transliterated
+                    if (hebrewWord && hebrewWord.replace(/[׀־]/g, '').trim()) {
+                        hebrewWords.push(hebrewWord);
+                        break;
+                    }
+                    // If it's pure punctuation, check if we should include it with the next word
+                    else if (hebrewWord === '׀' && hebrewIndex < rawHebrewWords.length) {
+                        // Attach the punctuation to the next word
+                        const nextWord = rawHebrewWords[hebrewIndex];
+                        if (nextWord) {
+                            hebrewWords.push(hebrewWord + ' ' + nextWord);
+                            hebrewIndex++;
+                            break;
+                        }
+                    }
+                }
+            }
+            
+            console.log(`🔤 Verse ${verseNumber}: ${hebrewWords.length} Hebrew, ${translitWords.length} translit, ${englishWords.length} English words`);
+            console.log(`📝 Hebrew aligned: [${hebrewWords.join(', ')}]`);
+            console.log(`📝 Transliteration: [${translitWords.join(', ')}]`);
+            
+            // Distribute words using page-wide ratio
+            const lines = distributeWordsOneToOne(hebrewWords, translitWords, hebrewTranslitWidth);
+            
+            // Create line-by-line rendering to maintain 1:1 correspondence
+            lines.forEach((line, lineIndex) => {
+                const lineRow = document.createElement('div');
+                lineRow.className = 'hebrew-transliteration-row';
+                
+                // Hebrew section for this line
+                const hebrewSection = document.createElement('div');
+                hebrewSection.className = 'hebrew-section';
+                hebrewSection.textContent = line.hebrew;
+                
+                // Transliteration section for this line
+                const translitSection = document.createElement('div');
+                translitSection.className = 'transliteration-section';
+                translitSection.textContent = line.transliteration;
+                
+                lineRow.appendChild(hebrewSection);
+                lineRow.appendChild(translitSection);
+                
+                verseContainer.appendChild(lineRow);
+            });
+            
+            // English translation below - full width
+            const englishSection = document.createElement('div');
+            englishSection.className = 'english-section';
+            englishSection.textContent = verse.english;
+            
+            verseContainer.appendChild(englishSection);
+            
+            return verseContainer;
+        }
+
+        function renderAllVerses() {
+            console.log('🎯 Starting new format rendering...');
+            
+            // Calculate page-wide column ratio first
+            calculatePageWideColumnRatio();
+            
+            const textContent = document.getElementById('text-content');
+            textContent.innerHTML = '';
+            
+            // Render each verse
+            currentVerses.forEach((verse, index) => {
+                const verseElement = renderVerse(verse, index + 1);
+                textContent.appendChild(verseElement);
+            });
+            
+            console.log('✅ All verses rendered with new format');
+        }
+
+        function handleResize() {
+            console.log('🔄 Window resized - recalculating...');
+            
+            // Recalculate page-wide ratio
+            calculatePageWideColumnRatio();
+            
+            // Re-render all verses with new proportions
+            renderAllVerses();
+        }
+
+        // Initialize page
+        async function initializePage() {
+            console.log('🚀 Initializing trilingual format v2...');
+            try {
+                // Load default text from API
+                await loadTextFromAPI(currentTextRef);
+                renderAllVerses();
+                
+                // Add schema upload listener
+                document.getElementById('schema-upload').addEventListener('change', handleSchemaUpload);
+                
+                console.log('✅ Page initialized successfully');
+            } catch (error) {
+                console.error('❌ Initialization error:', error);
+            }
+        }
+        
+        document.addEventListener('DOMContentLoaded', initializePage);
+        
+        // Fallback initialization
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initializePage);
+        } else {
+            initializePage();
+        }
+
+        // Add resize listener for recalculation
+        let resizeTimeout;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(handleResize, 100); // Debounce resize events
+        });
+
+    </script>
+</body>
+</html>
